@@ -1,17 +1,18 @@
 import { Card } from "react-bootstrap"
+import { LinkContainer } from 'react-router-bootstrap'
 
 function Product({product}) {
   return (
     <Card className="my-2 p-3 rounded">
-        <a href={`/product/${product._id}`}>
+        <LinkContainer to={`/product/${product._id}`}>
             <Card.Img src={product.image} variant='top' />
-        </a>
+        </LinkContainer>
         <Card.Body>
-        <a href={`/product/${product._id}`}>
+        <LinkContainer to={`/product/${product._id}`}>
             <Card.Title as='div'>
                 <strong>{product.name}</strong>
             </Card.Title>
-        </a> 
+        </LinkContainer> 
         </Card.Body>
         <Card.Text as='h3' className="text-right">
             NTD {product.price}
