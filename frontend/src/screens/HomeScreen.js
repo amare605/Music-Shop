@@ -1,8 +1,20 @@
-import products from '../../../backend/data/products'
+import { useState, useEffect } from 'react'
 import {Row, Col} from 'react-bootstrap'
 import Product from '../components/Product'
+import axios from 'axios'
 
 function HomeScreen() {
+    const [products, setProducts] = useState([]) 
+
+    useEffect(()=>{
+        const fetchProducts = async () => {
+            const { data } = await axios.get('/api/products')
+            
+            setProducts(data)
+        }
+
+        fetchProducts()
+    },[])
   return (
     <>
         <h2>新品上市</h2>
