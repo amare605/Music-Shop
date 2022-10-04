@@ -1,27 +1,32 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {Row, Col, Image, ListGroup, Card, Button} from 'react-bootstrap'
-import axios from 'axios'
+import { useDispatch, useSelector} from 'react-redux'
+import { listProductsDetails } from '../actions/productActions'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 
-
-function ProductScreen({match}) {        
-    const [product, setProduct] = useState({})
-    const { id } = useParams();
+function ProductScreen({match}) {  
+    const {id} = useParams(); 
+    const dispatch = useDispatch()
+    
+    const productDetails = useSelector(state => state.productDetails)
+    const { loading, error, product } = productDetails
 
     useEffect(()=>{
-        const fetchProduct = async () => {
-            const { data } = await axios.get(`/api/products/${encodeURIComponent(id)}`)
-            
-            setProduct(data)
-        }
+        dispatch(listProductsDetails(id))
+    },[ dispatch, id ])
 
-        fetchProduct()
-    },[ id])
-
+    
   return (
     <>
         <Link className='btn btn-primary my-3'  to="/">回上一頁</Link>
-        <Row>
+        {loading ? (
+            <Loader />
+        ) : error ? (
+            <Message variant='danger'>{error}</Message>
+        ) : (
+            <Row>
           <Col md={6}>
             <Image src={product.image} alt={product.name} fluid />
           </Col>
@@ -57,7 +62,8 @@ function ProductScreen({match}) {
                     <h3>加入購物車</h3>
                   </button>       
           </Col>
-        </Row>
+        </Row> 
+        )}
     </>
   )
 }
