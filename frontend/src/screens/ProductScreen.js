@@ -1,12 +1,15 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import {Row, Col, Image, ListGroup, Card, Button} from 'react-bootstrap'
+import { useNavigate } from 'react-router';
+import {Row, Col, Image, ListGroup, Card, Button, Form, FormControl } from 'react-bootstrap'
 import { useDispatch, useSelector} from 'react-redux'
 import { listProductsDetails } from '../actions/productActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
-function ProductScreen({match}) {  
+function ProductScreen({match , history}) {  
+    const [qty, setQty] = useState(1)
+
     const {id} = useParams(); 
     const dispatch = useDispatch()
     
@@ -17,6 +20,11 @@ function ProductScreen({match}) {
         dispatch(listProductsDetails(id))
     },[ dispatch, id ])
 
+    const navigate = useNavigate();
+    const addToCartHandler = () => {
+        navigate(`/cart/${id}?qty=${qty}`)
+    }
+    
     
   return (
     <>
@@ -33,12 +41,12 @@ function ProductScreen({match}) {
           <Col md={3}>
               <ListGroup variant='flush'>
                   <ListGroup.Item>
-                      <h3>{product.artist}</h3>
+                      <h3>藝人:{product.artist}</h3>
                   </ListGroup.Item>
               </ListGroup>
               <ListGroup>
                   <ListGroup.Item>
-                      <h3>{product.name}</h3>
+                      <h3>專輯:{product.name}</h3>
                   </ListGroup.Item>
               </ListGroup>
               <ListGroup>
@@ -56,11 +64,40 @@ function ProductScreen({match}) {
                       <h3>庫存量: {product.countInStock > 0 ? product.countInStock: "此商品無庫存"}</h3>
                   </ListGroup.Item>
               </ListGroup>
-          </Col>
+          </Col>      
+
           <Col md={3}>
-                  <button className='btn btn-block' type='button' disabled={product.countInStock <= 0}>
-                    <h3>加入購物車</h3>
-                  </button>       
+                {product.countInStock > 0 && (
+                    <ListGroup.Item>
+                      <Row>
+                        <Col><h3>購買數量</h3></Col>
+                        <Col>
+                          <FormControl
+                            as='select'
+                            size="lg" 
+                            value={qty}
+                            onChange={(e) => setQty(e.target.value)}
+                          >
+                            {[...Array(product.countInStock).keys()].map(
+                              (x) => (
+                                <option key={x + 1} value={x + 1}>
+                                  {x + 1}
+                                </option>
+                              )
+                            )}
+                          </FormControl>
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                  )}
+
+                <Button 
+                    onClick={addToCartHandler}
+                    className='btn btn-block' 
+                    type='button'
+                    disabled={product.countInStock <= 0}>
+                   <h3>加入購物車</h3>
+                </Button>    
           </Col>
         </Row> 
         )}
