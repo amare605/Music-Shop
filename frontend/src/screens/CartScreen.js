@@ -17,13 +17,13 @@ const CartScreen = ({ match, history }) => {
     const { cartItems } = cart
     
     const removeFromCartHandler = (id) => {
-       console.log('remove')
-      }
+      dispatch(removeFromCart(id))
+    }
     
     const navigate = useNavigate();
     const checkoutHandler = () => {
         navigate(`/login?redirect=${"/shipping"}`)
-      }
+    }
 
     useEffect(() => {
         if (productId) {
