@@ -6,7 +6,7 @@ import FormContainer from '../components/FormContainer'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { saveShippingAddress } from '../actions/cartActions'
 
-function ShippingScreen({ history}) {
+function ShippingScreen() {
     const navigate = useNavigate();
     
     const cart = useSelector((state) => state.cart)
