@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
@@ -8,6 +8,7 @@ import { getUserDetails, updateUserProfile } from '../actions/userActions'
 
 function ProfileScreen ({  history }) {
   const location = useLocation();
+  const navigate = useNavigate();
   
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -29,7 +30,7 @@ function ProfileScreen ({  history }) {
 
   useEffect(() => {
     if (!userInfo) {
-      history.push('/login')
+      navigate('/login')
     } else {
         if(!user.name){
             dispatch(getUserDetails('profile'))
@@ -38,7 +39,7 @@ function ProfileScreen ({  history }) {
             setEmail(user.email) 
         }
     }
-  }, [dispatch,  history, userInfo , user ])
+  }, [dispatch,  history, userInfo , user, navigate ])
 
   const submitHandler = (e) => {
     e.preventDefault()
