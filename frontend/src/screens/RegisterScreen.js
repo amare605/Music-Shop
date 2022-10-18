@@ -7,6 +7,7 @@ import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
 import { register } from '../actions/userActions'
 
+
 function RegisterScreen ({  history }) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ function RegisterScreen ({  history }) {
   const userRegister = useSelector((state) => state.userRegister)
   const { loading, error, userInfo } = userRegister
 
+  
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
   useEffect(() => {

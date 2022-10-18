@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
+import { Table, Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
+import { listMyOrders } from '../actions/orderActions'
 
 function ProfileScreen ({  history }) {
   const location = useLocation();
@@ -21,6 +23,10 @@ function ProfileScreen ({  history }) {
   const userDetails = useSelector((state) => state.userDetails)
   const { loading, error, user } = userDetails
 
+  const orderListMy = useSelector((state) => state.orderListMy)
+  const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
+
+
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
@@ -28,12 +34,14 @@ function ProfileScreen ({  history }) {
   const { success } = userUpdateProfile
   
 
+
   useEffect(() => {
     if (!userInfo) {
       navigate('/login')
     } else {
         if(!user.name){
             dispatch(getUserDetails('profile'))
+            dispatch(listMyOrders())
         } else{
             setName(user.name)
             setEmail(user.email) 
@@ -106,6 +114,54 @@ function ProfileScreen ({  history }) {
         </Col>
         <Col md={9}>
             <h2>我的訂單</h2>
+            {loadingOrders ? (
+                <Loader />
+              ) : errorOrders ? (
+                <Message variant='danger'>{errorOrders}</Message>
+              ) : (
+                <Table striped bordered hover responsive className='table-sm'>
+                  <thead>
+                    <tr>
+                      <th>訂單單號</th>
+                      <th>訂單日期</th>
+                      <th>總金額</th>
+                      <th>已狀態</th>
+                      <th>已狀態</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders.map((order) => (
+                      <tr key={order._id}>
+                        <td>{order._id}</td>
+                        <td>{order.createdAt.substring(0, 10)}</td>
+                        <td>{order.totalPrice}</td>
+                        <td>
+                          {order.isPaid ? (
+                            <i className='fa-solid fa-check' style={{ color: 'green' }}></i>
+                          ) : (
+                            <i className='fas fa-times' style={{ color: 'red' }}></i>
+                          )}
+                        </td>
+                        <td>
+                          {order.isDelivered ? (
+                            <i className='fa-solid fa-check' style={{ color: 'green' }}></i>
+                          ) : (
+                            <i className='fas fa-times' style={{ color: 'red' }}></i>
+                          )}
+                        </td>
+                        <td>
+                          <LinkContainer to={`/order/${order._id}`}>
+                            <Button className='btn-sm' variant='light'>
+                              訂單明細
+                            </Button>
+                          </LinkContainer>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              )}
         </Col>
     </Row>
   )
