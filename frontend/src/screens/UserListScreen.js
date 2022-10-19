@@ -5,7 +5,7 @@ import { Table, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listUsers,  } from '../actions/userActions'
+import { listUsers, deleteUser } from '../actions/userActions'
 
 function UserListScreen  ()  {
   const dispatch = useDispatch()
@@ -17,10 +17,14 @@ function UserListScreen  ()  {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
+  const userDelete = useSelector((state) => state.userDelete)
+  const { success: successDelete } = userDelete
 
   const deleteHandler = (id) => {
-        console.log('delete')
+    if (window.confirm('確定刪除?')) {
+      dispatch(deleteUser(id))
     }
+  }
   
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
@@ -28,7 +32,7 @@ function UserListScreen  ()  {
     } else {
       navigate('/login')
     }
-  }, [dispatch, navigate,  userInfo])
+  }, [dispatch, navigate,  userInfo, successDelete])
 
   
 
@@ -75,6 +79,7 @@ function UserListScreen  ()  {
                     variant='danger'
                     className='btn-sm'
                     onClick={() => deleteHandler(user._id)}
+                    disabled={userInfo._id === user._id}
                   >
                     <i className='fas fa-trash'></i>
                   </Button>
