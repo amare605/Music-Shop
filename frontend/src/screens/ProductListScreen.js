@@ -7,6 +7,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import {
   listProducts,
+  deleteProduct,
 } from '../actions/productActions'
 
 
@@ -18,6 +19,14 @@ function ProductListScreen ({  match }){
 
   const productList = useSelector((state) => state.productList)
   const { loading, error, products } = productList
+
+  const productDelete = useSelector((state) => state.productDelete)
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = productDelete
+
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -32,11 +41,12 @@ function ProductListScreen ({  match }){
     dispatch,
     navigate,
     userInfo,
+    successDelete,
   ])
 
   const deleteHandler = (id) => {
-    if (window.confirm('Are you sure')) {
-      //dispatch(deleteProduct(id))
+    if (window.confirm('確定刪除此商品?')) {
+      dispatch(deleteProduct(id))
     }
   }
 
@@ -55,7 +65,9 @@ function ProductListScreen ({  match }){
             <i className='fas fa-plus'></i> 建立商品
           </Button>
         </Col>
-      </Row>      
+      </Row>     
+      {loadingDelete && <Loader />}
+      {errorDelete && <Message variant='danger'>{errorDelete}</Message>} 
       {loading ? (
         <Loader />
       ) : error ? (
