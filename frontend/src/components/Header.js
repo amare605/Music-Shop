@@ -39,7 +39,20 @@ function Header() {
                  
                   <LinkContainer to="/cart"> 
                     <Nav.Link><i className="fa-solid fa-cart-shopping">購物車</i></Nav.Link>
-                  </LinkContainer>      
+                  </LinkContainer>  
+                  {userInfo && userInfo.isAdmin && (
+                  <NavDropdown title='管理員' id='adminmenu'>
+                    <LinkContainer to='/admin/userlist'>
+                      <NavDropdown.Item>使用者管理</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to='/admin/productlist'>
+                      <NavDropdown.Item>商品管理</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to='/admin/orderlist'>
+                      <NavDropdown.Item>訂單管理</NavDropdown.Item>
+                    </LinkContainer>
+                  </NavDropdown>
+                  )}    
                 </Nav>
                 </Navbar.Collapse>
             </Container>
