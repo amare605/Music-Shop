@@ -14,18 +14,21 @@ function UserListScreen  ()  {
   const userList = useSelector((state) => state.userList)
   const { loading, error, users } = userList
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
 
 
   const deleteHandler = (id) => {
         console.log('delete')
     }
   
-
-
   useEffect(() => {
-        dispatch(listUsers())
+    if (userInfo && userInfo.isAdmin) {
+      dispatch(listUsers())
+    } else {
+      navigate('/login')
     }
-  , [dispatch])
+  }, [dispatch, navigate,  userInfo])
 
   
 

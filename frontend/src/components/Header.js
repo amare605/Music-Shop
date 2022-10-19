@@ -41,7 +41,7 @@ function Header() {
                     <Nav.Link><i className="fa-solid fa-cart-shopping">購物車</i></Nav.Link>
                   </LinkContainer>  
                   {userInfo && userInfo.isAdmin && (
-                  <NavDropdown title='管理員' id='adminmenu'>
+                  <NavDropdown title='管理介面' id='adminmenu'>
                     <LinkContainer to='/admin/userlist'>
                       <NavDropdown.Item>使用者管理</NavDropdown.Item>
                     </LinkContainer>
