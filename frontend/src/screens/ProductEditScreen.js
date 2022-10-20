@@ -54,28 +54,29 @@ function ProductEditScreen () {
       }
   }, [dispatch, navigate, productId, product, successUpdate ])
 
-  //const uploadFileHandler = async (e) => {
-    //const file = e.target.files[0]
-    //const formData = new FormData()
-    //formData.append('image', file)
-    //setUploading(true)
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0]
+    const formData = new FormData()
+    formData.append('image', file)
+    setUploading(true)
 
-    //try {
-      //const config = {
-        //headers: {
-          //'Content-Type': 'multipart/form-data',
-        //},
-      //}
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
 
-      //const { data } = await axios.post('/api/upload', formData, config)
+      const { data } = await axios.post('/api/upload', formData, config)
 
-      //setImage(data)
-      //setUploading(false)
-    //} catch (error) {
-      //console.error(error)
-      //setUploading(false)
-    //}
-  //}
+      setImage(data)
+      setUploading(false)
+    } catch (error) {
+      console.error(error)
+      setUploading(false)
+    }
+  }
+
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -135,6 +136,11 @@ function ProductEditScreen () {
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               ></Form.Control>
+              <Form.Control
+                type="file"
+                onChange={uploadFileHandler}
+              ></Form.Control>
+              {uploading && <Loader />}
             </Form.Group>
 
             <Form.Group controlId='brand'>
