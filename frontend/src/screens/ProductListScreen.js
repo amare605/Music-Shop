@@ -8,7 +8,9 @@ import Loader from '../components/Loader'
 import {
   listProducts,
   deleteProduct,
+  createProduct,
 } from '../actions/productActions'
+import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 
 
 function ProductListScreen ({  match }){
@@ -28,20 +30,35 @@ function ProductListScreen ({  match }){
   } = productDelete
 
 
+  const productCreate = useSelector((state) => state.productCreate)
+  const {
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+    product: createdProduct,
+  } = productCreate
+
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
   useEffect(() => {
-    if (userInfo  && userInfo.isAdmin) {
-        dispatch(listProducts())
+    dispatch({ type: PRODUCT_CREATE_RESET })
+
+    if (!userInfo || !userInfo.isAdmin) {
+       navigate('/login')
+    } 
+    if (successCreate) {
+      navigate(`/admin/product/${createdProduct._id}/edit`)
     } else {
-        navigate('/login')
+      dispatch(listProducts())
     }
   }, [
     dispatch,
     navigate,
     userInfo,
     successDelete,
+    successCreate,
+    createdProduct,
   ])
 
   const deleteHandler = (id) => {
@@ -51,7 +68,7 @@ function ProductListScreen ({  match }){
   }
 
   const createProductHandler = () => {
-    //dispatch(createProduct())
+    dispatch(createProduct())
   }
 
   return (
@@ -68,6 +85,8 @@ function ProductListScreen ({  match }){
       </Row>     
       {loadingDelete && <Loader />}
       {errorDelete && <Message variant='danger'>{errorDelete}</Message>} 
+      {loadingCreate && <Loader />}
+      {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (
