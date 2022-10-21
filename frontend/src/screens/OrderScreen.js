@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { PayPalButton } from 'react-paypal-button-v2'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { getOrderDetails, payOrder } from '../actions/orderActions'
-import {ORDER_PAY_RESET, ORDER_DELIVER_RESET, } from '../constants/orderConstants'
+import { getOrderDetails, payOrder, deliverOrder } from '../actions/orderActions'
+import { ORDER_PAY_RESET, ORDER_DELIVER_RESET, } from '../constants/orderConstants'
 
 function OrderScreen() {
     const {id} = useParams(); 
@@ -24,12 +24,26 @@ function OrderScreen() {
     const orderPay = useSelector((state) => state.orderPay)
     const { loading: loadingPay, success: successPay } = orderPay
 
+    const orderDeliver = useSelector((state) => state.orderDeliver)
+    const { loading: loadingDeliver, success: successDeliver } = orderDeliver
+  
+    const userLogin = useSelector((state) => state.userLogin)
+    const { userInfo } = userLogin
+
     const successPaymentHandler = (paymentResult) => {
         console.log(paymentResult)
         dispatch(payOrder(orderId, paymentResult))
     }
 
+    const deliverHandler = () => {
+        dispatch(deliverOrder(order))
+    }
+
     useEffect(() => {
+        if (!userInfo) {
+            navigate('/login')
+          }
+
         const addPayPalScript = async () => {
             const { data: clientId } = await axios.get('/api/config/paypal')
             const script = document.createElement('script')
@@ -44,7 +58,7 @@ function OrderScreen() {
 
         
 
-        if(!order || order._id !== orderId || successPay) {
+        if(!order || order._id !== orderId || successPay || successDeliver) {
             dispatch({ type: ORDER_PAY_RESET })
             dispatch({ type: ORDER_DELIVER_RESET })
             dispatch(getOrderDetails(orderId))
@@ -56,7 +70,7 @@ function OrderScreen() {
             }
         }
 
-    }, [dispatch,successPay, order, orderId]) 
+    }, [navigate, dispatch, userInfo, successPay ,successDeliver ,order, orderId]) 
 
 
   return loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
@@ -77,9 +91,7 @@ function OrderScreen() {
                     </p>
 
                     {order.isDelivered ? (
-                        <Message variant='success'>
-                            於{order.deliveredAt}已出貨
-                        </Message>
+                        <Message variant='success'>已出貨</Message>
                         ) : (
                         <Message variant='danger'>尚未出貨</Message>
                     )}
@@ -170,6 +182,21 @@ function OrderScreen() {
                         )}
                         </ListGroup.Item>
                     )}
+                    {loadingDeliver && <Loader />}
+                    {userInfo &&
+                        userInfo.isAdmin &&
+                        order.isPaid &&
+                        !order.isDelivered && (
+                        <ListGroup.Item>
+                            <Button
+                            type='button'
+                            className='btn btn-block'
+                            onClick={deliverHandler}
+                            >
+                            確認出貨
+                            </Button>
+                        </ListGroup.Item>
+                        )}
                     </ListGroup>
                 </Card>
                 </Col>
