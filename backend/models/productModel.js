@@ -19,7 +19,10 @@ const productSchema = mongoose.Schema(
         type: String,
         required: true,
       },
-
+      artist: {
+        type: String,
+        required: true,
+      },
       price: {
         type: Number,
         required: true,
