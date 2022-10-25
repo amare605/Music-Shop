@@ -5,6 +5,7 @@ import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import Paginate from '../components/Paginate'
 import {
   listProducts,
   deleteProduct,
@@ -14,13 +15,15 @@ import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 
 
 function ProductListScreen ({  match }){
-  //const pageNumber = match.params.pageNumber || 1
+ 
+  const params = useParams()
+  const pageNumber = params.pageNumber || 1
 
   const dispatch = useDispatch()
   const navigate = useNavigate();
 
   const productList = useSelector((state) => state.productList)
-  const { loading, error, products } = productList
+  const { loading, error, products, page, pages } = productList
 
   const productDelete = useSelector((state) => state.productDelete)
   const {
@@ -50,7 +53,7 @@ function ProductListScreen ({  match }){
     if (successCreate) {
       navigate(`/admin/product/${createdProduct._id}/edit`)
     } else {
-      dispatch(listProducts())
+      dispatch(listProducts('', pageNumber))
     }
   }, [
     dispatch,
@@ -59,6 +62,7 @@ function ProductListScreen ({  match }){
     successDelete,
     successCreate,
     createdProduct,
+    pageNumber
   ])
 
   const deleteHandler = (id) => {
@@ -130,6 +134,7 @@ function ProductListScreen ({  match }){
               ))}
             </tbody>
           </Table>
+          <Paginate pages={pages} page={page} isAdmin={true} />
         </>
       )}
     </>
