@@ -7,6 +7,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import { listMyOrders } from '../actions/orderActions'
+import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
 function ProfileScreen ({  history }) {
   const location = useLocation();
@@ -39,7 +40,8 @@ function ProfileScreen ({  history }) {
     if (!userInfo) {
       navigate('/login')
     } else {
-        if(!user.name){
+        if(!user || !user.name || success){
+            dispatch({ type: USER_UPDATE_PROFILE_RESET })
             dispatch(getUserDetails('profile'))
             dispatch(listMyOrders())
         } else{
@@ -47,7 +49,7 @@ function ProfileScreen ({  history }) {
             setEmail(user.email) 
         }
     }
-  }, [dispatch,  history, userInfo , user, navigate ])
+  }, [dispatch,  history, userInfo , user, navigate ,success ])
 
   const submitHandler = (e) => {
     e.preventDefault()
