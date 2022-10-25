@@ -1,11 +1,12 @@
 import { useEffect } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector} from 'react-redux'
 import {Row, Col} from 'react-bootstrap'
 import Product from '../components/Product'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Paginate from '../components/Paginate'
+import ProductCarousel from '../components/ProductCarousel'
 import { listProducts} from '../actions/productActions'
 
 
@@ -27,6 +28,13 @@ function HomeScreen() {
     
   return (
     <>
+        {!keyword ? (
+        <ProductCarousel />
+        ) : (
+        <Link to='/' className='btn btn-light'>
+          返回
+        </Link>
+        )}
         <h2>新品上市</h2>
         {loading ? (<Loader />) :
         error ? (<Message variant='danger'>{error}</Message>) : 
