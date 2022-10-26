@@ -131,12 +131,6 @@ function ProductEditScreen () {
             <Form.Group controlId='image'>
               <Form.Label>專輯圖片</Form.Label>
               <Form.Control
-                type='text'
-                placeholder='請輸入專輯圖片 url...'
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-              ></Form.Control>
-              <Form.Control
                 type="file"
                 onChange={uploadFileHandler}
               ></Form.Control>
