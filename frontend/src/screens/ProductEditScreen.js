@@ -174,7 +174,7 @@ function ProductEditScreen () {
             </Form.Group> 
 
             <Button type='submit' variant='primary'>
-              更新
+              存檔
             </Button>
           </Form>
         )}
