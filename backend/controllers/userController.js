@@ -2,7 +2,7 @@ import asyncHandler from 'express-async-handler'
 import generateToken from '../utils/generateToken.js'
 import User from '../models/userModel.js'
 
-// @desc    Auth user & get token
+// @desc    認證使用者和取得token
 // @route   POST /api/users/login
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
@@ -27,7 +27,7 @@ const authUser = asyncHandler(async (req, res) => {
    
   })
 
-// @desc    Register a new user
+// @desc    註冊新使用者
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
@@ -62,7 +62,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 
 
-// @desc    Get user profile
+// @desc    取得使用者資料
 // @route   GET /api/users/profile
 // @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
@@ -82,7 +82,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
   })
 
 
-// @desc    Update user profile
+// @desc    更新使用者資料
 // @route   PUT /api/users/profile
 // @access  Private
 const updateUserProfile = asyncHandler(async (req, res) => {
@@ -110,7 +110,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 })
 
-// @desc    Get all users
+// @desc    取得全部使用者
 // @route   GET /api/users
 // @access  Private/Admin
 const getUsers = asyncHandler(async (req, res) => {
@@ -118,7 +118,7 @@ const getUsers = asyncHandler(async (req, res) => {
   res.json(users)
 })
 
-// @desc    Delete user
+// @desc    刪除特定id使用者
 // @route   DELETE /api/users/:id
 // @access  Private/Admin
 const deleteUser = asyncHandler(async (req, res) => {
@@ -133,7 +133,7 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 })
 
-// @desc    Get user by ID
+// @desc    取得特定id使用者
 // @route   GET /api/users/:id
 // @access  Private/Admin
 const getUserById = asyncHandler(async (req, res) => {
@@ -147,7 +147,7 @@ const getUserById = asyncHandler(async (req, res) => {
   }
 })
 
-// @desc    Update user
+// @desc    更新特定id使用者
 // @route   PUT /api/users/:id
 // @access  Private/Admin
 const updateUser = asyncHandler(async (req, res) => {

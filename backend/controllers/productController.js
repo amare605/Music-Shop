@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler'
 import Product from '../models/productModel.js'
 
-// @desc Fetch all products
+// @desc 抓取所有商品
 // @route GET /api/products
 // @access Public
 const getProducts = asyncHandler(async (req, res) => {
@@ -33,7 +33,7 @@ const getProducts = asyncHandler(async (req, res) => {
     res.json({products, page, pages: Math.ceil(count / pageSize)})
   })
 
-// @desc single product
+// @desc 抓取特定id商品
 // @route GET /api/products/:id
 // @access Public
 const getProductById = asyncHandler(async (req, res) => {
@@ -48,7 +48,7 @@ const getProductById = asyncHandler(async (req, res) => {
 
   })
 
-// @desc    Delete a product
+// @desc    刪除特定id商品
 // @route   DELETE /api/products/:id
 // @access  Private/Admin
 const deleteProduct = asyncHandler(async (req, res) => {
@@ -64,7 +64,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
 })
 
 
-// @desc    Create a product
+// @desc    建立商品
 // @route   POST /api/products
 // @access  Private/Admin
 const createProduct = asyncHandler(async (req, res) => {
@@ -82,7 +82,7 @@ const createProduct = asyncHandler(async (req, res) => {
   res.status(201).json(createdProduct)
 })
 
-// @desc    Update a product
+// @desc    更新商品
 // @route   PUT /api/products/:id
 // @access  Private/Admin
 const updateProduct = asyncHandler(async (req, res) => {
@@ -114,7 +114,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 })
 
 
-// @desc    Get top rated products
+// @desc    取得countInStock數最高的前3個商品，用於carousel呈現
 // @route   GET /api/products/top
 // @access  Public
 const getTopProducts = asyncHandler(async (req, res) => {

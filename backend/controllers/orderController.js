@@ -2,7 +2,7 @@ import asyncHandler from 'express-async-handler'
 import Order from '../models/orderModel.js'
 
 
-// @desc    Create new order
+// @desc    新增訂單
 // @route   POST /api/orders
 // @access  Private
 
@@ -38,7 +38,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
 })
 
 
-// @desc    Get order by ID
+// @desc    抓特定id的訂單
 // @route   GET /api/orders/:id
 // @access  Private
 const getOrderById = asyncHandler(async (req, res) => {
@@ -56,7 +56,7 @@ const getOrderById = asyncHandler(async (req, res) => {
   }
 })
 
-// @desc    Update order to paid
+// @desc    更新訂單狀態為'已付款'
 // @route   GET /api/orders/:id/pay
 // @access  Private
 const updateOrderToPaid = asyncHandler(async (req, res) => {
@@ -82,7 +82,7 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
 })
 
 
-// @desc    Update order to delivered
+// @desc    更新訂單狀態為'已送達'
 // @route   GET /api/orders/:id/deliver
 // @access  Private/Admin
 const updateOrderToDelivered = asyncHandler(async (req, res) => {
@@ -102,7 +102,7 @@ const updateOrderToDelivered = asyncHandler(async (req, res) => {
 })
 
 
-// @desc    Get logged in user orders
+// @desc    抓取會員訂單，用於會員登入時，查詢自己訂單
 // @route   GET /api/orders/myorders
 // @access  Private
 const getMyOrders = asyncHandler(async (req, res) => {
@@ -111,7 +111,7 @@ const getMyOrders = asyncHandler(async (req, res) => {
 })
 
 
-// @desc    Get all orders
+// @desc    抓取全部訂單，管理用
 // @route   GET /api/orders
 // @access  Private/Admin
 const getOrders = asyncHandler(async (req, res) => {
