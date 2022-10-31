@@ -3,14 +3,14 @@ import { LinkContainer } from 'react-router-bootstrap'
 
 function Product({product}) {
   return (
-    <Card className="my-2 p-3 rounded">
+    <Card className="my-2 p-3 rounded" style={{backgroundColor:'white' }}>
         <LinkContainer to={`/product/${product._id}`}>
             <Card.Img src={product.image} variant='top' />
         </LinkContainer>
         <Card.Body>
         <LinkContainer to={`/product/${product._id}`}>
             <Card.Title as='div'>
-                <strong>{product.name}</strong>
+                <strong style={{color:'#696969' }}>{product.name}</strong>
             </Card.Title>
         </LinkContainer> 
         </Card.Body>
