@@ -4,6 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../actions/userActions'
 
+
 function Header() {
   const dispatch = useDispatch()
 
@@ -19,7 +20,7 @@ function Header() {
         <Navbar bg="primary" variant="dark" expand="lg" collapseOnSelect>
             <Container>
                 <LinkContainer to="/">
-                    <Navbar.Brand >Music Shop</Navbar.Brand>
+                  <Navbar.Brand >Music Shop</Navbar.Brand>                    
                 </LinkContainer>              
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
