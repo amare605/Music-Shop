@@ -37,23 +37,26 @@ function HomeScreen() {
     <>
         <Meta />
         {!keyword ? (
-        <ProductCarousel />
+        <>
+            <ProductCarousel />
+            <h2>新品上架</h2>
+            <Row>
+                <ProductNew />
+            </Row>      
+
+            <h2>推薦商品</h2>
+            <Row>
+                <ProductRecommend />
+            </Row>
+
+            <h2>全部商品</h2>
+        </>
         ) : (
         <Link to='/' className='btn btn-light'>
           返回
         </Link>
         )}
-        <h2>新品上架</h2>
-        <Row>
-            <ProductNew />
-        </Row>      
 
-        <h2>推薦商品</h2>
-        <Row>
-            <ProductRecommend />
-        </Row>  
-        
-        <h2>全部商品</h2>
         {loading ? (<Loader />) :
         error ? (<Message variant='danger'>{error}</Message>) : 
         (<>
