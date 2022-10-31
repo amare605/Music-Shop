@@ -8,7 +8,8 @@ import Loader from '../components/Loader'
 import Paginate from '../components/Paginate'
 import Meta from '../components/Meta';
 import ProductCarousel from '../components/ProductCarousel'
-import { listProducts} from '../actions/productActions'
+import ProductNew from '../components/ProductNew';
+import { listProducts, } from '../actions/productActions'
 
 
 
@@ -25,7 +26,8 @@ function HomeScreen() {
     
     useEffect(()=>{
         dispatch(listProducts(keyword, pageNumber))
-    }, [dispatch, keyword, pageNumber])
+    }, [dispatch, keyword, pageNumber, ])
+
 
     
   return (
@@ -38,6 +40,10 @@ function HomeScreen() {
           返回
         </Link>
         )}
+        <h2>新品上架</h2>
+        <Row>
+            <ProductNew />
+        </Row>
         <h2>全部商品</h2>
         {loading ? (<Loader />) :
         error ? (<Message variant='danger'>{error}</Message>) : 

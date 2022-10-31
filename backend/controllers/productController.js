@@ -123,6 +123,15 @@ const getTopProducts = asyncHandler(async (req, res) => {
   res.json(products)
 })
 
+// @desc    取得createdAt數最新的前4個商品，用於carousel呈現
+// @route   GET /api/products/new
+// @access  Public
+const getNewProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({}).sort({ createdAt: -1 }).limit(4)
+
+  res.json(products)
+})
+
 export {
     getProducts,
     getProductById,
@@ -130,4 +139,5 @@ export {
     createProduct,
     updateProduct,
     getTopProducts,
+    getNewProducts,
 }

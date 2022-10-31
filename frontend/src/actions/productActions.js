@@ -18,6 +18,9 @@ import {
     PRODUCT_TOP_REQUEST,
     PRODUCT_TOP_SUCCESS,
     PRODUCT_TOP_FAIL,
+    PRODUCT_NEW_REQUEST,
+    PRODUCT_NEW_SUCCESS,
+    PRODUCT_NEW_FAIL,
 } from  '../constants/productConstants'
 import { logout } from './userActions'
 
@@ -198,7 +201,35 @@ export const listTopProducts = () => async (dispatch) => {
     }   
 
     dispatch({
-      type: PRODUCT_UPDATE_FAIL,
+      type: PRODUCT_TOP_FAIL,
+      payload: message,
+    })
+  }
+}
+
+
+
+export const listNewProducts = () => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_NEW_REQUEST })
+
+    const { data } = await axios.get(`/api/products/new`)
+
+    dispatch({
+      type: PRODUCT_NEW_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+        dispatch(logout())
+    }   
+
+    dispatch({
+      type: PRODUCT_NEW_FAIL,
       payload: message,
     })
   }
