@@ -38,7 +38,7 @@ function HomeScreen() {
           返回
         </Link>
         )}
-        <h2>新品上市</h2>
+        <h2>全部商品</h2>
         {loading ? (<Loader />) :
         error ? (<Message variant='danger'>{error}</Message>) : 
         (<>
