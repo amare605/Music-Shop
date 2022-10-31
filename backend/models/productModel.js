@@ -38,6 +38,10 @@ const productSchema = mongoose.Schema(
         required: true,
         default: 0,
       },
+      recommend: {
+        type: Number,
+        required: false,
+      },
     },
     {
       timestamps: true,

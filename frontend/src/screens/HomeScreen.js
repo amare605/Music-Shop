@@ -1,15 +1,16 @@
 import { useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom'
 import { useDispatch, useSelector} from 'react-redux'
 import {Row, Col} from 'react-bootstrap'
 import Product from '../components/Product'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Paginate from '../components/Paginate'
-import Meta from '../components/Meta';
+import Meta from '../components/Meta'
 import ProductCarousel from '../components/ProductCarousel'
-import ProductNew from '../components/ProductNew';
-import { listProducts, } from '../actions/productActions'
+import ProductNew from '../components/ProductNew'
+import ProductRecommend from '../components/ProductRecommend'
+import { listNewProducts, listProducts, listRecommendProducts } from '../actions/productActions'
 
 
 
@@ -22,6 +23,8 @@ function HomeScreen() {
 
     const productList = useSelector(state =>state.productList)
     const {loading, error, products, page, pages } = productList
+  
+
 
     
     useEffect(()=>{
@@ -43,7 +46,13 @@ function HomeScreen() {
         <h2>新品上架</h2>
         <Row>
             <ProductNew />
-        </Row>
+        </Row>      
+
+        <h2>推薦商品</h2>
+        <Row>
+            <ProductRecommend />
+        </Row>  
+        
         <h2>全部商品</h2>
         {loading ? (<Loader />) :
         error ? (<Message variant='danger'>{error}</Message>) : 

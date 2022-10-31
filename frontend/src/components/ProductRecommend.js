@@ -2,20 +2,20 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from './Loader'
 import Message from './Message'
-import { listNewProducts } from '../actions/productActions'
-import { Card, Col } from "react-bootstrap"
+import { listRecommendProducts } from '../actions/productActions'
+import { Card ,Col } from "react-bootstrap"
 import { LinkContainer, } from 'react-router-bootstrap'
 
 
 
-function ProductNew() {
+function ProductRecommend() {
     const dispatch = useDispatch()
 
-    const productNew = useSelector((state) => state.productNew)
-    const { loading, error, products } = productNew
+    const ProductRecommend = useSelector((state) => state.productRecommend)
+    const { loading, error, products } = ProductRecommend
   
     useEffect(() => {
-      dispatch(listNewProducts())
+      dispatch(listRecommendProducts())
     }, [dispatch])
   
 
@@ -25,11 +25,11 @@ function ProductNew() {
     ) : error ? (
       <Message variant='danger'>{error}</Message>
     ) : (
-    <Col style={{display:'flex', flexDirection:'row'}}>
+        <Col style={{display:'flex', flexDirection:'row'}}>
         {products.map((products) => (
-        <Card key={products._id} className="my-2 p-3 rounded" style={{backgroundColor:'white' }}>
+        <Card key={products._id} className="my-2 p-3 rounded" style={{backgroundColor:'white' , width: '18rem'  }}>
             <LinkContainer to={`/product/${products._id}`}>
-                <Card.Img src={products.image} variant='top' />
+                <Card.Img src={products.image} variant='top'/>
             </LinkContainer>
             <Card.Body>
             <LinkContainer to={`/product/${products._id}`}>
@@ -43,9 +43,9 @@ function ProductNew() {
             </Card.Text>
         </Card>
         ))}
-    </Col>
+        </Col>
     
   )
 }
 
-export default ProductNew
+export default ProductRecommend

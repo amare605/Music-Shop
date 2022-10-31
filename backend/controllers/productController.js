@@ -132,6 +132,17 @@ const getNewProducts = asyncHandler(async (req, res) => {
   res.json(products)
 })
 
+// @desc    取得recommend，前4個商品的商品，用於推薦商品
+// @route   GET /api/products/recommend
+// @access  Public
+const getRecommendProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({}).sort({ recommend: -1 }).limit(4)
+
+  res.json(products)
+})
+
+
+
 export {
     getProducts,
     getProductById,
@@ -140,4 +151,5 @@ export {
     updateProduct,
     getTopProducts,
     getNewProducts,
+    getRecommendProducts,
 }
