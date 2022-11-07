@@ -39,7 +39,7 @@ const productSchema = mongoose.Schema(
         default: 0,
       },
       recommend: {
-        type: Number,
+        type: Boolean,
         required: false,
       },
       isPublished: {

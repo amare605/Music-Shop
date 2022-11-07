@@ -24,10 +24,12 @@ function HomeScreen() {
 
     const productList = useSelector(state =>state.productList)
     const {loading, error, products, page, pages } = productList
-  
+
+   
     const productsPublished = products.filter(product => product.isPublished)
+   
     
-    
+
     useEffect(()=>{
         dispatch(listProducts(keyword, pageNumber))
     }, [dispatch, keyword, pageNumber,  ])
@@ -42,13 +44,19 @@ function HomeScreen() {
             <ProductCarousel />
             {/* <h2>新品上架</h2>
             <Row>
-                <ProductNew />
-            </Row>      
-
-            <h2>推薦商品</h2>
+                {productsNew.map(product => (
+                    <Col  key={product._id}  className='align-items-stretch d-flex' sm={12} md={6} lg={4} xl={3}>
+                        <Product product={product}/>
+                    </Col>
+                ))}
+            </Row>       
+               <h2>推薦商品</h2>
             <Row>
-                <ProductRecommend />
-            </Row> */}
+               <ProductRecommend />
+            </Row>
+
+            
+            */}
 
             <h2>全部商品</h2>
         </>
