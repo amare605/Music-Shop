@@ -24,6 +24,8 @@ function ProductEditScreen () {
   
   const [uploading, setUploading] = useState(false)
 
+  const [isPublished , setIsPublished ] = useState(false)
+
   const dispatch = useDispatch()
 
   const productDetails = useSelector((state) => state.productDetails)
@@ -50,6 +52,7 @@ function ProductEditScreen () {
             setArtist(product.artist)
             setCategory(product.category)
             setCountInStock(product.countInStock)
+            setIsPublished(product.isPublished)
         }
       }
   }, [dispatch, navigate, productId, product, successUpdate ])
@@ -89,6 +92,7 @@ function ProductEditScreen () {
         artist,
         category,
         countInStock,
+        isPublished: true,
       })
     )
   }
@@ -108,6 +112,18 @@ function ProductEditScreen () {
           <Message variant='danger'>{error}</Message>
         ) : (
           <Form onSubmit={submitHandler}>
+
+          <Form.Group controlId='artist'>
+              <Form.Label>藝人</Form.Label>
+              <Form.Control
+                type='text'
+                placeholder='請輸入藝人...'
+                value={artist}
+                onChange={(e) => setArtist(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+
             <Form.Group controlId='name'>
               <Form.Label>專輯名稱</Form.Label>
               <Form.Control
@@ -118,13 +134,13 @@ function ProductEditScreen () {
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='price'>
-              <Form.Label>價格</Form.Label>
+            <Form.Group controlId='category'>
+              <Form.Label>類別</Form.Label>
               <Form.Control
-                type='number'
-                placeholder='請輸入價格...'
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
+                type='text'
+                placeholder='請輸入類別...'
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
@@ -137,13 +153,13 @@ function ProductEditScreen () {
               {uploading && <Loader />}
             </Form.Group>
 
-            <Form.Group controlId='brand'>
-              <Form.Label>藝人</Form.Label>
+            <Form.Group controlId='price'>
+              <Form.Label>價格</Form.Label>
               <Form.Control
-                type='text'
-                placeholder='請輸入藝人...'
-                value={artist}
-                onChange={(e) => setArtist(e.target.value)}
+                type='number'
+                placeholder='請輸入價格...'
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
@@ -156,16 +172,6 @@ function ProductEditScreen () {
                 onChange={(e) => setCountInStock(e.target.value)}
               ></Form.Control>
             </Form.Group>
-
-            <Form.Group controlId='category'>
-              <Form.Label>類別</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='請輸入類別...'
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              ></Form.Control>
-            </Form.Group> 
 
             <Button type='submit' variant='primary'>
               存檔

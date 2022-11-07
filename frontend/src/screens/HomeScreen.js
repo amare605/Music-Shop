@@ -14,6 +14,7 @@ import { listNewProducts, listProducts, listRecommendProducts } from '../actions
 
 
 
+
 function HomeScreen() {
     const dispatch = useDispatch()
     const params = useParams()
@@ -24,12 +25,12 @@ function HomeScreen() {
     const productList = useSelector(state =>state.productList)
     const {loading, error, products, page, pages } = productList
   
-
-
+    const productsPublished = products.filter(product => product.isPublished)
+    
     
     useEffect(()=>{
         dispatch(listProducts(keyword, pageNumber))
-    }, [dispatch, keyword, pageNumber, ])
+    }, [dispatch, keyword, pageNumber,  ])
 
 
     
@@ -61,7 +62,7 @@ function HomeScreen() {
         error ? (<Message variant='danger'>{error}</Message>) : 
         (<>
             <Row>
-                {products.map(product => (
+                {productsPublished.map(product => (
                     <Col  key={product._id}  className='align-items-stretch d-flex' sm={12} md={6} lg={4} xl={3}>
                         <Product product={product}/>
                     </Col>
