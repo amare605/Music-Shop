@@ -39,7 +39,7 @@ function HomeScreen() {
         {!keyword ? (
         <>
             <ProductCarousel />
-            <h2>新品上架</h2>
+            {/* <h2>新品上架</h2>
             <Row>
                 <ProductNew />
             </Row>      
@@ -47,7 +47,7 @@ function HomeScreen() {
             <h2>推薦商品</h2>
             <Row>
                 <ProductRecommend />
-            </Row>
+            </Row> */}
 
             <h2>全部商品</h2>
         </>
