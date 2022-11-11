@@ -21,11 +21,7 @@
 
 密碼：123456
 
-帳號：jane@example.com 
-
-密碼：123456
-
-結帳用Paypal
+結帳用Paypal帳號：
 
 電子郵件：sb-vltsg21757223@personal.example.com
 
@@ -89,13 +85,13 @@ npm run build
 
 # 匯入樣本資料
 
-此專案有提供sample user date 和 sample product data
+此專案有提供sample user date 和 sample product data 
 
-匯入資料
+匯入sample data
 
 npm run data:import
 
-刪除資料
+刪除sample data
 
 npm run data:destroy
 
