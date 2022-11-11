@@ -7,17 +7,21 @@
 # Live Version
 網址： https://stanmusicshop.herokuapp.com/
 
-Sample
+樣本帳號：
 
-帳號：admin@example.com (管理員)
+管理員：
 
-密碼：123456
-
-帳號：john@example.com (會員)
+帳號：admin@example.com 
 
 密碼：123456
 
-帳號：jane@example.com (會員)
+會員：
+
+帳號：john@example.com 
+
+密碼：123456
+
+帳號：jane@example.com 
 
 密碼：123456
 
