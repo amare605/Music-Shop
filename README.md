@@ -7,6 +7,20 @@
 # Live Version
 網址： https://stanmusicshop.herokuapp.com/
 
+Sample
+
+帳號：admin@example.com (管理員)
+
+密碼：123456
+
+帳號：john@example.com (會員)
+
+密碼：123456
+
+帳號：jane@example.com (會員)
+
+密碼：123456
+
 
 # 功能
 會員功能：
@@ -48,9 +62,35 @@ npm install
 
 # Run
 
-# Run frontend (:3000) & backend (:5000)
+1. Run frontend (:3000) & backend (:5000)
+
 npm run dev
 
-# Run backend only
+2. Run backend only
+
 npm run server
 
+# Build & Deploy
+建立 frontend prod build
+
+cd frontend
+
+npm run build
+
+# 匯入樣本資料
+
+此專案有提供sample user date 和 sample product data
+
+匯入資料
+
+npm run data:import
+
+刪除資料
+
+npm run data:destroy
+
+# 致謝
+
+Github: @bradtraversy
+
+Website: traversy-media
