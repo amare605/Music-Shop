@@ -23,3 +23,34 @@
 
 3.使用者管理：修改及刪除會員資料
 
+# 使用
+
+# Env Variables
+請於根目錄，新增.env 檔，檔案內容請填入
+
+NODE_ENV = development
+
+PORT = 5000
+
+MONGO_URI = 您的 mongodb uri
+
+JWT_SECRET = 'abc123'
+
+PAYPAL_CLIENT_ID = 您的 client id
+
+# Install Dependencies (frontend & backend)
+
+npm install
+
+cd frontend
+
+npm install
+
+# Run
+
+# Run frontend (:3000) & backend (:5000)
+npm run dev
+
+# Run backend only
+npm run server
+
