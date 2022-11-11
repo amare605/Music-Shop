@@ -54,7 +54,7 @@ MONGO_URI = 您的 mongodb uri
 
 JWT_SECRET = 'abc123'
 
-PAYPAL_CLIENT_ID = 您的 client id
+PAYPAL_CLIENT_ID = 您的 paypal client id
 
 # Install Dependencies (frontend & backend)
 
