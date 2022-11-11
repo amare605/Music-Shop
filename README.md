@@ -25,6 +25,12 @@
 
 密碼：123456
 
+結帳用Paypal
+
+電子郵件：sb-vltsg21757223@personal.example.com
+
+密碼：bf-@Xy95
+
 
 # 功能
 會員功能：
@@ -66,11 +72,11 @@ npm install
 
 # Run
 
-1. Run frontend (:3000) & backend (:5000)
+Run frontend (:3000) & backend (:5000)：
 
 npm run dev
 
-2. Run backend only
+Run backend only：
 
 npm run server
 
