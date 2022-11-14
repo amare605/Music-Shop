@@ -8,7 +8,7 @@ import FormContainer from '../components/FormContainer'
 import { register } from '../actions/userActions'
 
 
-function RegisterScreen ({  history }) {
+function RegisterScreen () {
   const location = useLocation();
   const navigate = useNavigate();
 
