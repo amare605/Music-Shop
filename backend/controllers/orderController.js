@@ -57,7 +57,7 @@ const getOrderById = asyncHandler(async (req, res) => {
 })
 
 // @desc    更新訂單狀態為'已付款'
-// @route   GET /api/orders/:id/pay
+// @route   PUT /api/orders/:id/pay
 // @access  Private
 const updateOrderToPaid = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id)
