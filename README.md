@@ -6,6 +6,7 @@
 
 # Live Version
 網址： https://stanmusicshop.herokuapp.com/
+
 (註: 現行網址暫時關閉中，可直接DOWNLOAD 此REPO 於 LOCAL ENVIROMENT 使用)
 
 樣本帳號：
